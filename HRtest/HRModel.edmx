@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="K092Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'K092.dbo.CADRE_VIEW_PERSONSL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CADRE_VIEW_PERSONSL">
+          <Key>
+            <PropertyRef Name="ISN_PERSON" />
+          </Key>
+          <Property Name="ISN_PERSON" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="PWORK" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="FIO" Type="varchar" MaxLength="255" />
+          <Property Name="DOL" Type="varchar" MaxLength="255" />
+          <Property Name="POD" Type="varchar" MaxLength="255" />
+          <Property Name="ORG" Type="varchar" MaxLength="255" />
+          <Property Name="IORG" Type="varchar" MaxLength="48" />
+          <Property Name="ISN_WORK" Type="varchar" MaxLength="48" />
+          <Property Name="ISN_DISPLACEMENT" Type="varchar" MaxLength="48" />
+          <Property Name="ISN_POD" Type="varchar" MaxLength="48" />
+        </EntityType>
+        <EntityContainer Name="K092ModelStoreContainer">
+          <EntitySet Name="CADRE_VIEW_PERSONSL" EntityType="Self.CADRE_VIEW_PERSONSL" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CADRE_VIEW_PERSONSL].[ISN_PERSON] AS [ISN_PERSON], 
+    [CADRE_VIEW_PERSONSL].[PWORK] AS [PWORK], 
+    [CADRE_VIEW_PERSONSL].[FIO] AS [FIO], 
+    [CADRE_VIEW_PERSONSL].[DOL] AS [DOL], 
+    [CADRE_VIEW_PERSONSL].[POD] AS [POD], 
+    [CADRE_VIEW_PERSONSL].[ORG] AS [ORG], 
+    [CADRE_VIEW_PERSONSL].[IORG] AS [IORG], 
+    [CADRE_VIEW_PERSONSL].[ISN_WORK] AS [ISN_WORK], 
+    [CADRE_VIEW_PERSONSL].[ISN_DISPLACEMENT] AS [ISN_DISPLACEMENT], 
+    [CADRE_VIEW_PERSONSL].[ISN_POD] AS [ISN_POD]
+    FROM [dbo].[CADRE_VIEW_PERSONSL] AS [CADRE_VIEW_PERSONSL]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="K092Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PersonSL">
+          <Key>
+            <PropertyRef Name="ISN_PERSON" />
+          </Key>
+          <Property Name="ISN_PERSON" Type="String" MaxLength="48" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DOL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="POD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          </EntityType>
+        <EntityContainer Name="K092DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CADRE_VIEW_PERSONSL" EntityType="K092Model.PersonSL" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="K092ModelStoreContainer" CdmEntityContainer="K092DBContext">
+          <EntitySetMapping Name="CADRE_VIEW_PERSONSL">
+            <EntityTypeMapping TypeName="K092Model.PersonSL">
+              <MappingFragment StoreEntitySet="CADRE_VIEW_PERSONSL">
+                <ScalarProperty Name="ISN_PERSON" ColumnName="ISN_PERSON" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="DOL" ColumnName="DOL" />
+                <ScalarProperty Name="POD" ColumnName="POD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
