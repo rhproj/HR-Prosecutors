@@ -67,6 +67,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PersonFIO.cs">
+      <DependentUpon>HRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PersonSL.cs">
       <DependentUpon>HRModel.tt</DependentUpon>
     </Compile>

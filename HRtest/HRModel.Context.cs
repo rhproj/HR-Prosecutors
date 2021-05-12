@@ -26,5 +26,6 @@ namespace HRtest
         }
     
         public virtual DbSet<PersonSL> CADRE_VIEW_PERSONSL { get; set; }
+        public virtual DbSet<PersonFIO> CADRE_VIEW_FIO { get; set; }
     }
 }
