@@ -23,7 +23,7 @@ namespace HRConsoleCore
 
             var dbContext = new K092Context();  //K092DBContext();
 
-            var activeStaff = from pSL in dbContext.CADRE_VIEW_PERSONSL
+            var activeStaff = (from pSL in dbContext.CADRE_VIEW_PERSONSL
                               join fio in dbContext.CADRE_VIEW_FIO on
                               pSL.ISN_PERSON equals fio.ISN_PERSON
                               orderby fio.FIO
@@ -33,7 +33,7 @@ namespace HRConsoleCore
                                   DOL = pSL.DOL,
                                   POD = pSL.POD,
                                   ISN_PERSON = pSL.ISN_PERSON
-                              };  //).ToList(); - not needed cuz it's IQuariable already wich means foreach works!
+                              }).Take(10);  //).ToList(); - not needed cuz it's IQuariable already wich means foreach works!
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 

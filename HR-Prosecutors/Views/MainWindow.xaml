@@ -12,6 +12,19 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <Grid>
+        <TabControl>
+            <TabItem Header="На позициях">
+                <DataGrid ItemsSource="{Binding OnActivePositionsList}" EnableRowVirtualization="False">
 
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Raw">
+                <DataGrid ItemsSource="{Binding PersonSList}">
+                    <!--<DataGrid.Columns >
+                        <DataGridTextColumn Header="Фам"  />
+                    </DataGrid.Columns>-->
+                </DataGrid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
