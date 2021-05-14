@@ -1,18 +1,27 @@
 ﻿using EosKadriLibrary;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HRtest
+namespace HRConsoleCore
 {
     class Program
     {
         static void Main(string[] args)
         {
-            #region Internal DbContext
-            var dbContext = new K092Context();//K092DBContext();
+            #region in case of json file 
+            //var builder = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            //IConfigurationRoot configuration = builder.Build();
+
+            ////Console.WriteLine(configuration.GetConnectionString("K092Context"));
+            #endregion
+
+            var dbContext = new K092Context();  //K092DBContext();
 
             var activeStaff = from pSL in dbContext.CADRE_VIEW_PERSONSL
                               join fio in dbContext.CADRE_VIEW_FIO on
@@ -34,20 +43,6 @@ namespace HRtest
                 Console.WriteLine($"{i++}. {person.FIO} Подразделение: {person.POD}. Должность: {person.DOL}.");
             }
 
-            #region 1 Table
-            //var activeStaff = dbContext.CADRE_VIEW_PERSONSL.ToList().OrderBy(p=>p.FIO);
-
-            //Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-            //int i = 1;
-            //foreach (var person in activeStaff)
-            //{
-            //    Console.WriteLine($"{i++}. {person.FIO} Подразделение: {person.POD}. Должность: {person.DOL}."); //({person.ISN_PERSON})
-            //} 
-            #endregion 
-            #endregion
-
-            Console.ReadKey();
         }
     }
 }

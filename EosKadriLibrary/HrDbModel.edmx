@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="K092Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'K092.dbo.CADRE_VIEW_FIO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CADRE_VIEW_FIO">
+          <Key>
+            <PropertyRef Name="ISN_FIO" />
+            <PropertyRef Name="ISN_PERSON" />
+          </Key>
+          <Property Name="ISN_FIO" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="ISN_PERSON" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="FIO_SHORT" Type="varchar" MaxLength="70" />
+          <Property Name="FIO" Type="varchar" MaxLength="194" />
+          <Property Name="FIO_GC" Type="varchar" MaxLength="194" />
+          <Property Name="FIO_DC" Type="varchar" MaxLength="194" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'K092.dbo.CADRE_VIEW_PERSONSL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CADRE_VIEW_PERSONSL">
+          <Key>
+            <PropertyRef Name="ISN_PERSON" />
+          </Key>
+          <Property Name="ISN_PERSON" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="PWORK" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="FIO" Type="varchar" MaxLength="255" />
+          <Property Name="DOL" Type="varchar" MaxLength="255" />
+          <Property Name="POD" Type="varchar" MaxLength="255" />
+          <Property Name="ORG" Type="varchar" MaxLength="255" />
+          <Property Name="IORG" Type="varchar" MaxLength="48" />
+          <Property Name="ISN_WORK" Type="varchar" MaxLength="48" />
+          <Property Name="ISN_DISPLACEMENT" Type="varchar" MaxLength="48" />
+          <Property Name="ISN_POD" Type="varchar" MaxLength="48" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'K092.dbo.CADRE_VIEW_PERSONSL2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CADRE_VIEW_PERSONSL2">
+          <Key>
+            <PropertyRef Name="ISN_PERSON" />
+            <PropertyRef Name="IORG" />
+            <PropertyRef Name="ISN_WORK" />
+            <PropertyRef Name="ISN_DISPLACEMENT" />
+          </Key>
+          <Property Name="ISN_PERSON" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="PWORK" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="FIO" Type="varchar" MaxLength="255" />
+          <Property Name="DOL" Type="varchar" MaxLength="255" />
+          <Property Name="ORG" Type="varchar" MaxLength="255" />
+          <Property Name="IORG" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="ISN_WORK" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="ISN_DISPLACEMENT" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="ISN_POD" Type="varchar" MaxLength="48" />
+          <Property Name="POD" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'K092.dbo.CADRE_VIEW_RESERVE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CADRE_VIEW_RESERVE">
+          <Key>
+            <PropertyRef Name="ISN_RESERVE" />
+            <PropertyRef Name="ISN_PERSON" />
+            <PropertyRef Name="INNER_OUTER" />
+          </Key>
+          <Property Name="ISN_RESERVE" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="ISN_PERSON" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="ISN_ORGANIZATION_CL" Type="varchar" MaxLength="48" />
+          <Property Name="INNER_OUTER" Type="int" Nullable="false" />
+          <Property Name="PODR_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="OFFICE" Type="varchar" MaxLength="513" />
+        </EntityType>
+        <EntityContainer Name="K092ModelStoreContainer">
+          <EntitySet Name="CADRE_VIEW_FIO" EntityType="Self.CADRE_VIEW_FIO" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CADRE_VIEW_FIO].[ISN_FIO] AS [ISN_FIO], 
+    [CADRE_VIEW_FIO].[ISN_PERSON] AS [ISN_PERSON], 
+    [CADRE_VIEW_FIO].[FIO_SHORT] AS [FIO_SHORT], 
+    [CADRE_VIEW_FIO].[FIO] AS [FIO], 
+    [CADRE_VIEW_FIO].[FIO_GC] AS [FIO_GC], 
+    [CADRE_VIEW_FIO].[FIO_DC] AS [FIO_DC]
+    FROM [dbo].[CADRE_VIEW_FIO] AS [CADRE_VIEW_FIO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CADRE_VIEW_PERSONSL" EntityType="Self.CADRE_VIEW_PERSONSL" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CADRE_VIEW_PERSONSL].[ISN_PERSON] AS [ISN_PERSON], 
+    [CADRE_VIEW_PERSONSL].[PWORK] AS [PWORK], 
+    [CADRE_VIEW_PERSONSL].[FIO] AS [FIO], 
+    [CADRE_VIEW_PERSONSL].[DOL] AS [DOL], 
+    [CADRE_VIEW_PERSONSL].[POD] AS [POD], 
+    [CADRE_VIEW_PERSONSL].[ORG] AS [ORG], 
+    [CADRE_VIEW_PERSONSL].[IORG] AS [IORG], 
+    [CADRE_VIEW_PERSONSL].[ISN_WORK] AS [ISN_WORK], 
+    [CADRE_VIEW_PERSONSL].[ISN_DISPLACEMENT] AS [ISN_DISPLACEMENT], 
+    [CADRE_VIEW_PERSONSL].[ISN_POD] AS [ISN_POD]
+    FROM [dbo].[CADRE_VIEW_PERSONSL] AS [CADRE_VIEW_PERSONSL]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CADRE_VIEW_PERSONSL2" EntityType="Self.CADRE_VIEW_PERSONSL2" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CADRE_VIEW_PERSONSL2].[ISN_PERSON] AS [ISN_PERSON], 
+    [CADRE_VIEW_PERSONSL2].[PWORK] AS [PWORK], 
+    [CADRE_VIEW_PERSONSL2].[FIO] AS [FIO], 
+    [CADRE_VIEW_PERSONSL2].[DOL] AS [DOL], 
+    [CADRE_VIEW_PERSONSL2].[ORG] AS [ORG], 
+    [CADRE_VIEW_PERSONSL2].[IORG] AS [IORG], 
+    [CADRE_VIEW_PERSONSL2].[ISN_WORK] AS [ISN_WORK], 
+    [CADRE_VIEW_PERSONSL2].[ISN_DISPLACEMENT] AS [ISN_DISPLACEMENT], 
+    [CADRE_VIEW_PERSONSL2].[ISN_POD] AS [ISN_POD], 
+    [CADRE_VIEW_PERSONSL2].[POD] AS [POD]
+    FROM [dbo].[CADRE_VIEW_PERSONSL2] AS [CADRE_VIEW_PERSONSL2]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CADRE_VIEW_RESERVE" EntityType="Self.CADRE_VIEW_RESERVE" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CADRE_VIEW_RESERVE].[ISN_RESERVE] AS [ISN_RESERVE], 
+    [CADRE_VIEW_RESERVE].[ISN_PERSON] AS [ISN_PERSON], 
+    [CADRE_VIEW_RESERVE].[ISN_ORGANIZATION_CL] AS [ISN_ORGANIZATION_CL], 
+    [CADRE_VIEW_RESERVE].[INNER_OUTER] AS [INNER_OUTER], 
+    [CADRE_VIEW_RESERVE].[PODR_NAME] AS [PODR_NAME], 
+    [CADRE_VIEW_RESERVE].[OFFICE] AS [OFFICE]
+    FROM [dbo].[CADRE_VIEW_RESERVE] AS [CADRE_VIEW_RESERVE]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="K092Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CADRE_VIEW_PERSONSL">
+          <Key>
+            <PropertyRef Name="ISN_PERSON" />
+          </Key>
+          <Property Name="ISN_PERSON" Type="String" MaxLength="48" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DOL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="POD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ORG" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="K092Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CADRE_VIEW_PERSONSL" EntityType="Self.CADRE_VIEW_PERSONSL" />
+          <EntitySet Name="CADRE_VIEW_PERSONSL2" EntityType="K092Model.CADRE_VIEW_PERSONSL2" />
+          <EntitySet Name="CADRE_VIEW_RESERVE" EntityType="K092Model.CADRE_VIEW_RESERVE" />
+          <EntitySet Name="CADRE_VIEW_FIO" EntityType="K092Model.CADRE_VIEW_FIO" />
+        </EntityContainer>
+        <EntityType Name="CADRE_VIEW_PERSONSL2">
+          <Key>
+            <PropertyRef Name="ISN_PERSON" />
+            <PropertyRef Name="IORG" />
+            <PropertyRef Name="ISN_WORK" />
+            <PropertyRef Name="ISN_DISPLACEMENT" />
+          </Key>
+          <Property Name="ISN_PERSON" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="PWORK" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="FIO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DOL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ORG" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IORG" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="ISN_WORK" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="ISN_DISPLACEMENT" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="ISN_POD" Type="String" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="POD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CADRE_VIEW_RESERVE">
+          <Key>
+            <PropertyRef Name="ISN_RESERVE" />
+            <PropertyRef Name="ISN_PERSON" />
+            <PropertyRef Name="INNER_OUTER" />
+          </Key>
+          <Property Name="ISN_RESERVE" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="ISN_PERSON" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="ISN_ORGANIZATION_CL" Type="String" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="INNER_OUTER" Type="Int32" Nullable="false" />
+          <Property Name="PODR_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OFFICE" Type="String" MaxLength="513" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CADRE_VIEW_FIO">
+          <Key>
+            <PropertyRef Name="ISN_FIO" />
+            <PropertyRef Name="ISN_PERSON" />
+          </Key>
+          <Property Name="ISN_FIO" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="ISN_PERSON" Type="String" Nullable="false" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="FIO_SHORT" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="FIO" Type="String" MaxLength="194" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="K092ModelStoreContainer" CdmEntityContainer="K092Context">
+          <EntitySetMapping Name="CADRE_VIEW_PERSONSL">
+            <EntityTypeMapping TypeName="K092Model.CADRE_VIEW_PERSONSL">
+              <MappingFragment StoreEntitySet="CADRE_VIEW_PERSONSL">
+                <ScalarProperty Name="ISN_PERSON" ColumnName="ISN_PERSON" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="DOL" ColumnName="DOL" />
+                <ScalarProperty Name="POD" ColumnName="POD" />
+                <ScalarProperty Name="ORG" ColumnName="ORG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CADRE_VIEW_PERSONSL2">
+            <EntityTypeMapping TypeName="K092Model.CADRE_VIEW_PERSONSL2">
+              <MappingFragment StoreEntitySet="CADRE_VIEW_PERSONSL2">
+                <ScalarProperty Name="POD" ColumnName="POD" />
+                <ScalarProperty Name="ISN_POD" ColumnName="ISN_POD" />
+                <ScalarProperty Name="ISN_DISPLACEMENT" ColumnName="ISN_DISPLACEMENT" />
+                <ScalarProperty Name="ISN_WORK" ColumnName="ISN_WORK" />
+                <ScalarProperty Name="IORG" ColumnName="IORG" />
+                <ScalarProperty Name="ORG" ColumnName="ORG" />
+                <ScalarProperty Name="DOL" ColumnName="DOL" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="PWORK" ColumnName="PWORK" />
+                <ScalarProperty Name="ISN_PERSON" ColumnName="ISN_PERSON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CADRE_VIEW_RESERVE">
+            <EntityTypeMapping TypeName="K092Model.CADRE_VIEW_RESERVE">
+              <MappingFragment StoreEntitySet="CADRE_VIEW_RESERVE">
+                <ScalarProperty Name="OFFICE" ColumnName="OFFICE" />
+                <ScalarProperty Name="PODR_NAME" ColumnName="PODR_NAME" />
+                <ScalarProperty Name="INNER_OUTER" ColumnName="INNER_OUTER" />
+                <ScalarProperty Name="ISN_ORGANIZATION_CL" ColumnName="ISN_ORGANIZATION_CL" />
+                <ScalarProperty Name="ISN_PERSON" ColumnName="ISN_PERSON" />
+                <ScalarProperty Name="ISN_RESERVE" ColumnName="ISN_RESERVE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CADRE_VIEW_FIO">
+            <EntityTypeMapping TypeName="K092Model.CADRE_VIEW_FIO">
+              <MappingFragment StoreEntitySet="CADRE_VIEW_FIO">
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="FIO_SHORT" ColumnName="FIO_SHORT" />
+                <ScalarProperty Name="ISN_PERSON" ColumnName="ISN_PERSON" />
+                <ScalarProperty Name="ISN_FIO" ColumnName="ISN_FIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
