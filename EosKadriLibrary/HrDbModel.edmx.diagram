@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="43a5a3c6a549486cb815d9564ebb2d4f" Name="Diagram1">
+        <EntityTypeShape EntityType="K092Model.CADRE_VIEW_PERSONSL" Width="2" PointX="4.875" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="K092Model.CADRE_VIEW_PERSONSL2" Width="2.125" PointX="5.5" PointY="4.125" />
+        <EntityTypeShape EntityType="K092Model.CADRE_VIEW_RESERVE" Width="2.125" PointX="2.875" PointY="3.75" />
+        <EntityTypeShape EntityType="K092Model.CADRE_VIEW_FIO" Width="2.5" PointX="0.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

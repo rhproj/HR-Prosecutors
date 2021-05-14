@@ -1,20 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{307F8935-60D2-4C57-982B-A4711EA58D96}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>HRtest</RootNamespace>
-    <AssemblyName>HRtest</AssemblyName>
+    <ProjectGuid>{9D3DAF68-3A4A-4913-A91B-FB5E866D1A01}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EosKadriLibrary</RootNamespace>
+    <AssemblyName>EosKadriLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +26,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -52,61 +53,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HRModel.Context.cs">
+    <Compile Include="CADRE_VIEW_FIO.cs">
+      <DependentUpon>HrDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CADRE_VIEW_PERSONSL.cs">
+      <DependentUpon>HrDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CADRE_VIEW_PERSONSL2.cs">
+      <DependentUpon>HrDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CADRE_VIEW_RESERVE.cs">
+      <DependentUpon>HrDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HrDbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HRModel.Context.tt</DependentUpon>
+      <DependentUpon>HrDbModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="HRModel.cs">
+    <Compile Include="HrDbModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HRModel.tt</DependentUpon>
+      <DependentUpon>HrDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HRModel.Designer.cs">
+    <Compile Include="HrDbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HRModel.edmx</DependentUpon>
+      <DependentUpon>HrDbModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="PersonFIO.cs">
-      <DependentUpon>HRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PersonSL.cs">
-      <DependentUpon>HRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <EntityDeploy Include="HRModel.edmx">
+    <EntityDeploy Include="HrDbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HRModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>HrDbModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="HRModel.edmx.diagram">
-      <DependentUpon>HRModel.edmx</DependentUpon>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="HrDbModel.edmx.diagram">
+      <DependentUpon>HrDbModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HRModel.Context.tt">
+    <Content Include="HrDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HRModel.Context.cs</LastGenOutput>
-      <DependentUpon>HRModel.edmx</DependentUpon>
+      <LastGenOutput>HrDbModel.Context.cs</LastGenOutput>
+      <DependentUpon>HrDbModel.edmx</DependentUpon>
     </Content>
-    <Content Include="HRModel.tt">
+    <Content Include="HrDbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HRModel.edmx</DependentUpon>
-      <LastGenOutput>HRModel.cs</LastGenOutput>
+      <DependentUpon>HrDbModel.edmx</DependentUpon>
+      <LastGenOutput>HrDbModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EosKadriLibrary\EosKadriLibrary.csproj">
-      <Project>{9D3DAF68-3A4A-4913-A91B-FB5E866D1A01}</Project>
-      <Name>EosKadriLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>
