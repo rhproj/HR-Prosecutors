@@ -14,12 +14,22 @@
     <Grid>
         <TabControl>
             <TabItem Header="На позициях">
-                <DataGrid ItemsSource="{Binding OnActivePositionsList}" EnableRowVirtualization="False">
+                <DataGrid ItemsSource="{Binding OnActivePositionsList}" LoadingRow="DataGrid_LoadingRow">
 
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Raw">
-                <DataGrid ItemsSource="{Binding PersonSList}">
+            <TabItem Header="Оперативные должности">
+                <DataGrid ItemsSource="{Binding OnActiveProsecutorsList}" LoadingRow="DataGrid_LoadingRow">
+                    
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Специалисты">
+                <DataGrid ItemsSource="{Binding OnActiveSpecialistsList}" LoadingRow="DataGrid_LoadingRow">
+
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="ISN Raw">
+                <DataGrid ItemsSource="{Binding PersonSList}" LoadingRow="DataGrid_LoadingRow">
                     <!--<DataGrid.Columns >
                         <DataGridTextColumn Header="Фам"  />
                     </DataGrid.Columns>-->
