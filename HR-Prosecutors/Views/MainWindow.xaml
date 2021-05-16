@@ -12,29 +12,40 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <TabControl>
-            <TabItem Header="На позициях">
-                <DataGrid ItemsSource="{Binding OnActivePositionsList}" LoadingRow="DataGrid_LoadingRow">
+        <DockPanel>
+            <Grid DockPanel.Dock="Top" Margin="10,10">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Margin="10,0"/>
+                <Button Content="Поиск" Grid.Column="1"/>
+            </Grid>
+            <TabControl>
+                <TabItem Header="На позициях">
+                    <DataGrid ItemsSource="{Binding OnActivePositionsList}" LoadingRow="DataGrid_LoadingRow">
 
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Оперативные должности">
-                <DataGrid ItemsSource="{Binding OnActiveProsecutorsList}" LoadingRow="DataGrid_LoadingRow">
-                    
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Специалисты">
-                <DataGrid ItemsSource="{Binding OnActiveSpecialistsList}" LoadingRow="DataGrid_LoadingRow">
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Оперативные должности">
+                    <DataGrid ItemsSource="{Binding OnActiveProsecutorsList}" LoadingRow="DataGrid_LoadingRow">
 
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="ISN Raw">
-                <DataGrid ItemsSource="{Binding PersonSList}" LoadingRow="DataGrid_LoadingRow">
-                    <!--<DataGrid.Columns >
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Специалисты">
+                    <DataGrid ItemsSource="{Binding OnActiveSpecialistsList}" LoadingRow="DataGrid_LoadingRow">
+
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="ISN Raw">
+                    <DataGrid ItemsSource="{Binding PersonSList}" LoadingRow="DataGrid_LoadingRow">
+                        <!--<DataGrid.Columns >
                         <DataGridTextColumn Header="Фам"  />
                     </DataGrid.Columns>-->
-                </DataGrid>
-            </TabItem>
-        </TabControl>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+
     </Grid>
 </Window>

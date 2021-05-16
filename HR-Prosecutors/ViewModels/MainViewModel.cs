@@ -19,13 +19,13 @@ namespace HR_Prosecutors.ViewModels
             set { _title = value; }
         }
 
-        public List<PersonSL> PersonSList { get; }
+        public IList<PersonSL> PersonSList { get; }
 
-        public List<PersonActive> OnActivePositionsList { get; }
+        public IList<PersonActive> OnActivePositionsList { get; }
 
-        public List<PersonActive> OnActiveProsecutorsList { get; }
+        public IList<PersonActive> OnActiveProsecutorsList { get; }
 
-        public List<PersonActive> OnActiveSpecialistsList { get; }
+        public IList<PersonActive> OnActiveSpecialistsList { get; }
 
         public MainViewModel()
         {
