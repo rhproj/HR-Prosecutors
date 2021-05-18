@@ -1,4 +1,5 @@
 ﻿using EosKadriLibrary;
+using HR_Prosecutors.Commands;
 using HR_Prosecutors.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace HR_Prosecutors.ViewModels
 {
@@ -19,6 +21,8 @@ namespace HR_Prosecutors.ViewModels
             set { _title = value; }
         }
 
+        public int TabIndex { get; set; }
+
         public IList<PersonSL> PersonSList { get; }
 
         public IList<PersonActive> OnActivePositionsList { get; }
@@ -26,6 +30,23 @@ namespace HR_Prosecutors.ViewModels
         public IList<PersonActive> OnActiveProsecutorsList { get; }
 
         public IList<PersonActive> OnActiveSpecialistsList { get; }
+
+        #region COMMANDS
+        public ICommand SearchCommand { get; }
+        private bool CanSearchCommandExecute(object p)  //w/t object ругается CTOR
+        {
+            if (OnActivePositionsList == null)
+                return false;
+
+            return true;
+        }
+        private void OnSearchCommandExecuted(object p)
+        {
+
+        }
+
+
+        #endregion
 
         public MainViewModel()
         {
@@ -53,27 +74,9 @@ namespace HR_Prosecutors.ViewModels
 
             OnActiveSpecialistsList = LoadActiveSpecialists(dbContext);
 
-            //OnActivePositionsList = (from fio in dbContext.CADRE_VIEW_FIO
-            //                         join pSL in dbContext.CADRE_VIEW_PERSONSL
-            //                         on fio.ISN_PERSON equals pSL.ISN_PERSON
-            //                         orderby fio.FIO
-            //                         select new PersonActive()
-            //                         {
-            //                             FIO = fio.FIO,
-            //                             Position = pSL.DOL,
-            //                             Department = pSL.POD
-            //                         }).ToList();
+            SearchCommand = new RelayCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
 
 
-            //PersonSList = (from pSL in dbContext.CADRE_VIEW_PERSONSL
-            //               select new PersonSL
-            //               {
-            //                   Isn = num, //pSL.ISN_PERSON,
-            //                   FIO = pSL.FIO,
-            //                   Position = pSL.DOL,
-            //                   Department = pSL.POD,
-            //                   Organization = pSL.ORG
-            //               }).ToList();
 
             #region MyRegion
             //FioList = (from pSL in dbContext.CADRE_VIEW_PERSONSL
@@ -101,6 +104,14 @@ namespace HR_Prosecutors.ViewModels
             #endregion
         }
 
+        private List<PersonActive> SearchPerson(IList<PersonActive> listToSearch, string name)
+        {
+            var result = listToSearch.Where(p => p.FIO.Contains(name)).ToList();
+
+            return result;
+        }
+
+        #region LOAD queries
         private List<PersonActive> LoadActiveSpecialists(K092Context dbContext)
         {
             var list = (from fio in dbContext.CADRE_VIEW_FIO
@@ -163,7 +174,8 @@ namespace HR_Prosecutors.ViewModels
             }).ToList();
 
             return list;
-        }
+        } 
+        #endregion
     }
 }
 
