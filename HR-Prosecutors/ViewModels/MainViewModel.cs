@@ -12,37 +12,80 @@ using System.Windows.Input;
 
 namespace HR_Prosecutors.ViewModels
 {
-    class MainViewModel
+    class MainViewModel : ViewModel
     {
         private int _title = 7;
         public int Title
         {
-            get { return _title = 7; }
+            get { return _title; }
             set { _title = value; }
         }
 
-        public int TabIndex { get; set; }
+        K092Context dbContext = new K092Context();
+
+        private int _tabIndex;
+        public int TabIndex 
+        {
+            get { return _tabIndex; }
+            set { _tabIndex = value; OnPropertyChanged(); } 
+        }
+
+
+        private IList<PersonActive> _onActivePositionsList;
+        public IList<PersonActive> OnActivePositionsList 
+        {
+            get { return _onActivePositionsList; }
+            set { _onActivePositionsList = value; OnPropertyChanged(); } // 
+        }
+
+        private IList<PersonActive> _onActiveProsecutorsList;
+        public IList<PersonActive> OnActiveProsecutorsList 
+        {
+            get { return _onActiveProsecutorsList; }
+            set { _onActiveProsecutorsList = value; OnPropertyChanged(); } 
+        }
+
+        private IList<PersonActive> _onActiveSpecialistsList;
+        public IList<PersonActive> OnActiveSpecialistsList 
+        {
+            get { return _onActiveSpecialistsList; }
+            set { _onActiveSpecialistsList = value; OnPropertyChanged(); }
+        }
 
         public IList<PersonSL> PersonSList { get; }
 
-        public IList<PersonActive> OnActivePositionsList { get; }
+        private string _nameToSearch;
+        public string NameToSearch
+        {
+            get { return _nameToSearch; }
+            set { _nameToSearch = value; OnPropertyChanged(); }
+        }
 
-        public IList<PersonActive> OnActiveProsecutorsList { get; }
-
-        public IList<PersonActive> OnActiveSpecialistsList { get; }
+        //public string NameToSearch { get; set; }
 
         #region COMMANDS
         public ICommand SearchCommand { get; }
         private bool CanSearchCommandExecute(object p)  //w/t object ругается CTOR
         {
-            if (OnActivePositionsList == null)
-                return false;
+            if (TabIndex < 2)  //OnActivePositionsList == null || 
+                return true;
 
-            return true;
+            return false;
         }
         private void OnSearchCommandExecuted(object p)
         {
-
+            if (TabIndex == 0)
+            {
+                OnActivePositionsList = SearchPerson(LoadActive(), NameToSearch).ToList();
+            }
+            if (TabIndex == 1)
+            {
+                OnActiveProsecutorsList = SearchPerson(LoadActiveProsecutors(), NameToSearch).ToList();
+            }
+            if (TabIndex == 2)
+            {
+                OnActiveSpecialistsList = SearchPerson(LoadActiveSpecialists(), NameToSearch).ToList();
+            }
         }
 
 
@@ -50,7 +93,7 @@ namespace HR_Prosecutors.ViewModels
 
         public MainViewModel()
         {
-            var dbContext = new K092Context();
+            //var dbContext = new K092Context();
 
             #region Dummy data
             //FioList = new List<CADRE_VIEW_PERSONSL>
@@ -66,13 +109,13 @@ namespace HR_Prosecutors.ViewModels
             //}; 
             #endregion
 
-            OnActivePositionsList = LoadActive(dbContext);
+            OnActivePositionsList = LoadActive();
 
-            PersonSList = LoadRaw(dbContext);
+            OnActiveProsecutorsList = LoadActiveProsecutors();
+            
+            OnActiveSpecialistsList = LoadActiveSpecialists();
 
-            OnActiveProsecutorsList = LoadActiveProsecutors(dbContext);
-
-            OnActiveSpecialistsList = LoadActiveSpecialists(dbContext);
+            PersonSList = LoadRaw();
 
             SearchCommand = new RelayCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
 
@@ -104,65 +147,60 @@ namespace HR_Prosecutors.ViewModels
             #endregion
         }
 
-        private List<PersonActive> SearchPerson(IList<PersonActive> listToSearch, string name)
+        private IEnumerable<PersonActive> SearchPerson(IEnumerable<PersonActive> listToSearch, string name)
         {
-            var result = listToSearch.Where(p => p.FIO.Contains(name)).ToList();
+            var result = listToSearch.Where(p => p.FIO.Contains(name, StringComparison.InvariantCultureIgnoreCase));
 
-            return result;
+            return result; //new ObservableCollection<PersonActive>(result);
         }
 
         #region LOAD queries
-        private List<PersonActive> LoadActiveSpecialists(K092Context dbContext)
+        private List<PersonActive> LoadActiveSpecialists()
         {
-            var list = (from fio in dbContext.CADRE_VIEW_FIO
-                        join pSL in dbContext.CADRE_VIEW_PERSONSL
-                        on fio.ISN_PERSON equals pSL.ISN_PERSON
-                        where !(pSL.DOL.Contains("прок") || pSL.DOL.Contains("началь"))
-                        orderby fio.FIO
-                        select new PersonActive
-                        {
-                            FIO = fio.FIO,
-                            Position = pSL.DOL,
-                            Department = pSL.POD
-                        }).ToList();
-
-            return list;
+            return (from fio in dbContext.CADRE_VIEW_FIO
+                    join pSL in dbContext.CADRE_VIEW_PERSONSL
+                    on fio.ISN_PERSON equals pSL.ISN_PERSON
+                    where !(pSL.DOL.Contains("прок") || pSL.DOL.Contains("началь"))
+                    orderby fio.FIO
+                    select new PersonActive
+                    {
+                        FIO = fio.FIO,
+                        Position = pSL.DOL,
+                        Department = pSL.POD
+                    }).ToList();
         }
 
-        private List<PersonActive> LoadActiveProsecutors(K092Context dbContext)
+        private IList<PersonActive> LoadActiveProsecutors()
         {
-            var list = (from fio in dbContext.CADRE_VIEW_FIO
-                        join pSL in dbContext.CADRE_VIEW_PERSONSL
-                        on fio.ISN_PERSON equals pSL.ISN_PERSON
-                        where pSL.DOL.Contains("прок") || pSL.DOL.Contains("началь")
-                        orderby fio.FIO
-                        select new PersonActive
-                        {
-                            FIO = fio.FIO,
-                            Position = pSL.DOL,
-                            Department = pSL.POD
-                        }).ToList();
-
-            return list;
+            return (from fio in dbContext.CADRE_VIEW_FIO
+                    join pSL in dbContext.CADRE_VIEW_PERSONSL
+                    on fio.ISN_PERSON equals pSL.ISN_PERSON
+                    where pSL.DOL.Contains("прок") || pSL.DOL.Contains("началь")
+                    orderby fio.FIO
+                    select new PersonActive
+                    {
+                        FIO = fio.FIO,
+                        Position = pSL.DOL,
+                        Department = pSL.POD
+                    }).ToList();
         }
 
-        private List<PersonActive> LoadActive(K092Context dbContext)
+        private IList<PersonActive> LoadActive()
         {
-            var list = (from fio in dbContext.CADRE_VIEW_FIO
-                        join pSL in dbContext.CADRE_VIEW_PERSONSL
-                        on fio.ISN_PERSON equals pSL.ISN_PERSON
-                        orderby fio.FIO
-                        select new PersonActive
-                        {
-                            FIO = fio.FIO,
-                            Position = pSL.DOL,
-                            Department = pSL.POD
-                        }).ToList();
-
-            return list;
+            return  (from fio in dbContext.CADRE_VIEW_FIO
+                    join pSL in dbContext.CADRE_VIEW_PERSONSL
+                    on fio.ISN_PERSON equals pSL.ISN_PERSON
+                    orderby fio.FIO
+                    select new PersonActive
+                    {
+                        FIO = fio.FIO,
+                        Position = pSL.DOL,
+                        Department = pSL.POD
+                    }).ToList();
+  //new ObservableCollection<PersonActive>(list);
         }
 
-        private List<PersonSL> LoadRaw(K092Context dbContext)
+        private IList<PersonSL> LoadRaw()
         {
             var list = dbContext.CADRE_VIEW_PERSONSL.Select(pSL => new PersonSL
             {
