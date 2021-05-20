@@ -54,6 +54,9 @@ namespace HR_Prosecutors.ViewModels
 
         public IList<PersonSL> PersonSList { get; }
 
+        /// <summary> Работники прокуратуры, незадействованые в настоящее время</summary>
+        public IList<PersonSL> PersonDList { get; set; }
+
         private string _nameToSearch;
         public string NameToSearch
         {
@@ -61,13 +64,12 @@ namespace HR_Prosecutors.ViewModels
             set { _nameToSearch = value; OnPropertyChanged(); }
         }
 
-        //public string NameToSearch { get; set; }
 
         #region COMMANDS
         public ICommand SearchCommand { get; }
         private bool CanSearchCommandExecute(object p)  //w/t object ругается CTOR
         {
-            if (TabIndex < 2)  //OnActivePositionsList == null || 
+            if (TabIndex < 3)  //OnActivePositionsList == null || 
                 return true;
 
             return false;
@@ -78,11 +80,11 @@ namespace HR_Prosecutors.ViewModels
             {
                 OnActivePositionsList = SearchPerson(LoadActive(), NameToSearch).ToList();
             }
-            if (TabIndex == 1)
+            else if (TabIndex == 1)
             {
                 OnActiveProsecutorsList = SearchPerson(LoadActiveProsecutors(), NameToSearch).ToList();
             }
-            if (TabIndex == 2)
+            else if (TabIndex == 2)
             {
                 OnActiveSpecialistsList = SearchPerson(LoadActiveSpecialists(), NameToSearch).ToList();
             }
@@ -116,6 +118,8 @@ namespace HR_Prosecutors.ViewModels
             OnActiveSpecialistsList = LoadActiveSpecialists();
 
             PersonSList = LoadRaw();
+
+            PersonDList = LoadNotActive();
 
             SearchCommand = new RelayCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
 
@@ -199,6 +203,27 @@ namespace HR_Prosecutors.ViewModels
                     }).ToList();
   //new ObservableCollection<PersonActive>(list);
         }
+
+        private IList<PersonSL> LoadNotActive()
+        {
+            var result = (from pD in dbContext.CADRE_VIEW_PERSONSL2
+                         join pA in dbContext.CADRE_VIEW_PERSONSL
+                         on pD.ISN_PERSON equals pA.ISN_PERSON
+                         into InterstagePSL
+                         from pS in InterstagePSL.DefaultIfEmpty()
+                         where (pS.ISN_PERSON == null)
+                         select new PersonSL
+                         {
+                             Isn = pD.ISN_PERSON,
+                             FIO = pD.FIO,
+                             Position = pD.DOL,
+                             Department = pD.POD,
+                             Organization = pD.ORG
+                         }).GroupBy(p => p.Isn);
+
+            return result.Select(p => p.FirstOrDefault()).OrderBy(p=>p.FIO).ToList();
+        }
+
 
         private IList<PersonSL> LoadRaw()
         {

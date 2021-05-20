@@ -31,26 +31,31 @@
             <TabControl SelectedIndex="{Binding TabIndex}">
                 <TabItem Header="На позициях">
                     <DataGrid ItemsSource="{Binding OnActivePositionsList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsTextSearchEnabled="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                     </DataGrid>
 
                 </TabItem>
                 <TabItem Header="Оперативные должности">
                     <DataGrid ItemsSource="{Binding OnActiveProsecutorsList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsTextSearchEnabled="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Специалисты">
                     <DataGrid ItemsSource="{Binding OnActiveSpecialistsList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsTextSearchEnabled="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="ISN Raw">
                     <DataGrid ItemsSource="{Binding PersonSList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsTextSearchEnabled="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                         <!--<DataGrid.Columns >
                         <DataGridTextColumn Header="Фам"  />
                     </DataGrid.Columns>-->
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Не активны">
+                    <DataGrid ItemsSource="{Binding PersonDList}" LoadingRow="DataGrid_LoadingRow" 
+                              IsTextSearchEnabled="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                     </DataGrid>
                 </TabItem>
             </TabControl>
