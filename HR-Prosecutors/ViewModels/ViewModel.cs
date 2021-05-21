@@ -18,5 +18,3 @@ namespace HR_Prosecutors.ViewModels
         }
     }
 }
-
-//TODO See if you need it or not, otherwise keeping it won't do much

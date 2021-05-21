@@ -20,51 +20,59 @@ namespace HR_Prosecutors.ViewModels
     class MainViewModel : ViewModel
     {
         K092Context dbContext = new K092Context();
-        
+
+        #region PROPERTIES
         private int _tabIndex;
-        public int TabIndex 
+        public int TabIndex
         {
             get { return _tabIndex; }
-            set { _tabIndex = value; OnPropertyChanged(); } 
+            set { _tabIndex = value; OnPropertyChanged(); }
         }
-
-        private IEnumerable<PersonActive> _onActivePositionsList;
-        /// <summary> Работники прокуратуры на позициях</summary>
-        public IEnumerable<PersonActive> OnActivePositionsList 
-        {
-            get { return _onActivePositionsList; }
-            set { _onActivePositionsList = value; OnPropertyChanged(); } 
-        }
-
-        private IEnumerable<PersonActive> _onActiveProsecutorsList;
-        /// <summary> Прокуроры на позициях</summary>
-        public IEnumerable<PersonActive> OnActiveProsecutorsList 
-        {
-            get { return _onActiveProsecutorsList; }
-            set { _onActiveProsecutorsList = value; OnPropertyChanged(); } 
-        }
-
-        private IEnumerable<PersonActive> _onActiveSpecialistsList;
-        /// <summary> Специалисты на позициях </summary>
-        public IEnumerable<PersonActive> OnActiveSpecialistsList 
-        {
-            get { return _onActiveSpecialistsList; }
-            set { _onActiveSpecialistsList = value; OnPropertyChanged(); }
-        }
-
-        /// <summary> Задействованные работники прокуратуры</summary>
-        public IEnumerable<PersonSL> PersonSList { get; }
-
-        /// <summary> Работники прокуратуры, незадействованые в настоящее время</summary>
-        public IEnumerable<PersonSL> PersonDList { get; set; }
 
         private string _nameToSearch;
+        /// <summary> Name to search</summary>
         public string NameToSearch
         {
             get { return _nameToSearch; }
             set { _nameToSearch = value; OnPropertyChanged(); }
         }
 
+
+        /// <summary> HR-DB name to connect to </summary>
+        public string DbName { get { return $"База данных: {dbContext.Database.Connection.Database}"; } }
+
+
+        private IEnumerable<PersonActive> _onActivePositionsList;
+        /// <summary> Staff on positions </summary>
+        public IEnumerable<PersonActive> OnActivePositionsList
+        {
+            get { return _onActivePositionsList; }
+            set { _onActivePositionsList = value; OnPropertyChanged(); }
+        }
+
+        private IEnumerable<PersonActive> _onActiveProsecutorsList;
+        /// <summary> Prosecutors on positions </summary>
+        public IEnumerable<PersonActive> OnActiveProsecutorsList
+        {
+            get { return _onActiveProsecutorsList; }
+            set { _onActiveProsecutorsList = value; OnPropertyChanged(); }
+        }
+
+        private IEnumerable<PersonActive> _onActiveSpecialistsList;
+        /// <summary> Specialists on positions </summary>
+        public IEnumerable<PersonActive> OnActiveSpecialistsList
+        {
+            get { return _onActiveSpecialistsList; }
+            set { _onActiveSpecialistsList = value; OnPropertyChanged(); }
+        }
+
+        /// <summary> Active staff members </summary>
+        public IEnumerable<PersonSL> PersonSList { get; }
+
+        /// <summary> Inactive staff members </summary>
+        public IEnumerable<PersonSL> PersonDList { get; set; }
+
+        #endregion
 
         #region COMMANDS
         public ICommand SearchCommand { get; }
@@ -159,6 +167,33 @@ namespace HR_Prosecutors.ViewModels
             }
         }
 
+        #endregion
+
+        public MainViewModel()
+        {
+            OnActivePositionsList = LoadActive();
+
+            OnActiveProsecutorsList = LoadActiveProsecutors();
+            
+            OnActiveSpecialistsList = LoadActiveSpecialists();
+
+            PersonSList = LoadRaw();
+
+            PersonDList = LoadNotActive();
+
+            SearchCommand = new RelayCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
+
+            SaveExcelCommand = new RelayCommand(OnSaveExcelCommandExecuted, CanSaveExcelCommandExecute);
+        }
+
+        #region METHODS
+        private IEnumerable<PersonActive> SearchPerson(IEnumerable<PersonActive> listToSearch, string name)
+        {
+            var result = listToSearch.Where(p => p.FIO.Contains(name, StringComparison.InvariantCultureIgnoreCase));
+
+            return result; //new ObservableCollection<PersonActive>(result);
+        }
+
         private void SaveExcel(IEnumerable<IPerson> StaffList, FileInfo file, string header)
         {
             if (file.Exists)
@@ -184,74 +219,6 @@ namespace HR_Prosecutors.ViewModels
 
                 //w/o using make sure to close excel: package.Dispose();
             }
-        }
-
-        #endregion
-
-        public MainViewModel()
-        {
-            //var dbContext = new K092Context();
-
-
-            #region Dummy data
-            //FioList = new List<CADRE_VIEW_PERSONSL>
-            //{
-            //    new CADRE_VIEW_PERSONSL
-            //    {
-            //        ISN_PERSON = "12",
-            //        FIO = "Иванов",
-            //        DOL = "Отд 13",
-            //        POD = "Сарман",
-            //        ORG = "Прок"
-            //    }
-            //}; 
-            #endregion
-
-            OnActivePositionsList = LoadActive();
-
-            OnActiveProsecutorsList = LoadActiveProsecutors();
-            
-            OnActiveSpecialistsList = LoadActiveSpecialists();
-
-            PersonSList = LoadRaw();
-
-            PersonDList = LoadNotActive();
-
-            SearchCommand = new RelayCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
-
-            SaveExcelCommand = new RelayCommand(OnSaveExcelCommandExecuted, CanSaveExcelCommandExecute);
-
-            #region MyRegion
-            //FioList = (from pSL in dbContext.CADRE_VIEW_PERSONSL
-            //           select new
-            //           {
-            //               ISN_PERSON = pSL.ISN_PERSON,
-            //               FIO = pSL.FIO,
-            //               DOL = pSL.DOL,
-            //               POD = pSL.POD,
-            //               ORG = pSL.ORG
-            //           }).ToList<CADRE_VIEW_PERSONSL>();
-
-
-            //var activeStaff = from pSL in dbContext.CADRE_VIEW_PERSONSL
-            //                   join fio in dbContext.CADRE_VIEW_FIO on
-            //                   pSL.ISN_PERSON equals fio.ISN_PERSON
-            //                   orderby fio.FIO
-            //                   select new
-            //                   {
-            //                       FIO = fio.FIO,
-            //                       DOL = pSL.DOL,
-            //                       POD = pSL.POD,
-            //                       ISN_PERSON = pSL.ISN_PERSON
-            //                   }; 
-            #endregion
-        }
-
-        private IEnumerable<PersonActive> SearchPerson(IEnumerable<PersonActive> listToSearch, string name)
-        {
-            var result = listToSearch.Where(p => p.FIO.Contains(name, StringComparison.InvariantCultureIgnoreCase));
-
-            return result; //new ObservableCollection<PersonActive>(result);
         }
 
         #region LOAD queries
@@ -287,7 +254,7 @@ namespace HR_Prosecutors.ViewModels
 
         private IList<PersonActive> LoadActive()
         {
-            return  (from fio in dbContext.CADRE_VIEW_FIO
+            return (from fio in dbContext.CADRE_VIEW_FIO
                     join pSL in dbContext.CADRE_VIEW_PERSONSL
                     on fio.ISN_PERSON equals pSL.ISN_PERSON
                     orderby fio.FIO
@@ -297,29 +264,27 @@ namespace HR_Prosecutors.ViewModels
                         Position = pSL.DOL,
                         Department = pSL.POD
                     }).ToList();
-  //new ObservableCollection<PersonActive>(list);
         }
 
         private IList<PersonSL> LoadNotActive()
         {
             var result = (from pD in dbContext.CADRE_VIEW_PERSONSL2
-                         join pA in dbContext.CADRE_VIEW_PERSONSL
-                         on pD.ISN_PERSON equals pA.ISN_PERSON
-                         into InterstagePSL
-                         from pS in InterstagePSL.DefaultIfEmpty()
-                         where (pS.ISN_PERSON == null)
-                         select new PersonSL
-                         {
-                             Isn = pD.ISN_PERSON,
-                             FIO = pD.FIO,
-                             Position = pD.DOL,
-                             Department = pD.POD,
-                             Organization = pD.ORG
-                         }).GroupBy(p => p.Isn);
+                          join pA in dbContext.CADRE_VIEW_PERSONSL
+                          on pD.ISN_PERSON equals pA.ISN_PERSON
+                          into InterstagePSL
+                          from pS in InterstagePSL.DefaultIfEmpty()
+                          where (pS.ISN_PERSON == null)
+                          select new PersonSL
+                          {
+                              Isn = pD.ISN_PERSON,
+                              FIO = pD.FIO,
+                              Position = pD.DOL,
+                              Department = pD.POD,
+                              Organization = pD.ORG
+                          }).GroupBy(p => p.Isn);
 
-            return result.Select(p => p.FirstOrDefault()).OrderBy(p=>p.FIO).ToList();
+            return result.Select(p => p.FirstOrDefault()).OrderBy(p => p.FIO).ToList();
         }
-
 
         private IList<PersonSL> LoadRaw()
         {
@@ -333,7 +298,8 @@ namespace HR_Prosecutors.ViewModels
             }).ToList();
 
             return list;
-        } 
+        }
+        #endregion 
         #endregion
     }
 }

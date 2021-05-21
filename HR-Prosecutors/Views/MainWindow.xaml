@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         xmlns:vm="clr-namespace:HR_Prosecutors.ViewModels"
-        Title="СКД Кадры - база" Height="450" Width="800">
+        Title="СКД Кадры" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -19,13 +19,13 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="{Binding TabIndex}"/>
+                <Label Content="ФИО:"/>
                 <TextBox Grid.Column="1" Margin="10,0" Text="{Binding NameToSearch}"/>
                 <Button Content="Поиск" Grid.Column="2" Command="{Binding SearchCommand}"/>
             </Grid>
             <StatusBar DockPanel.Dock="Bottom" >
                 <StatusBarItem >
-                    <Label Content="{Binding NameToSearch}"/>
+                    <Label Content="{Binding DbName}"/>
                 </StatusBarItem>
                 <StatusBarItem HorizontalAlignment="Right">
                     <Button Content=".xlsx" Command="{Binding SaveExcelCommand}"/>
