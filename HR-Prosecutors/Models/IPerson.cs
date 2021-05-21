@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HR_Prosecutors.Models
 {
-    public class PersonActive : IPerson
+    interface IPerson
     {
         public string FIO { get; set; }
         public string Position { get; set; }

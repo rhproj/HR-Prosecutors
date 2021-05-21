@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HR_Prosecutors.Models
 {
-    public class PersonSL
+    public class PersonSL : IPerson
     {
         public string Isn { get; set; }
         public string FIO { get; set; }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         xmlns:vm="clr-namespace:HR_Prosecutors.ViewModels"
-        Title="{Binding Path=Title}" Height="450" Width="800">
+        Title="СКД Кадры - база" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -26,6 +26,9 @@
             <StatusBar DockPanel.Dock="Bottom" >
                 <StatusBarItem >
                     <Label Content="{Binding NameToSearch}"/>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <Button Content=".xlsx" Command="{Binding SaveExcelCommand}"/>
                 </StatusBarItem>
             </StatusBar>
             <TabControl SelectedIndex="{Binding TabIndex}">
@@ -59,8 +62,6 @@
                     </DataGrid>
                 </TabItem>
             </TabControl>
-
         </DockPanel>
-
     </Grid>
 </Window>
