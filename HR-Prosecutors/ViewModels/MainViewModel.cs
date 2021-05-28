@@ -76,7 +76,7 @@ namespace HR_Prosecutors.ViewModels
 
         #region COMMANDS
         public ICommand SearchCommand { get; }
-        private bool CanSearchCommandExecute(object p)  //w/t object ругается CTOR
+        private bool CanSearchCommandExecute(object p)  //w/t object ругается CTOR, чтоб не ругался вместо ICmd - используй тип RelayCmd
         {
             if (TabIndex < 3)  //OnActivePositionsList == null || 
                 return true;

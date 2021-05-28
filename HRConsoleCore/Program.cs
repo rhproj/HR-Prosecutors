@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace HRConsoleCore
 {
@@ -21,28 +22,46 @@ namespace HRConsoleCore
             ////Console.WriteLine(configuration.GetConnectionString("K092Context"));
             #endregion
 
-            var dbContext = new K092Context();  //K092DBContext();
+            //var dbContext = new K092Context();  //K092DBContext();
 
-            var activeStaff = (from pSL in dbContext.CADRE_VIEW_PERSONSL
-                              join fio in dbContext.CADRE_VIEW_FIO on
-                              pSL.ISN_PERSON equals fio.ISN_PERSON
-                              orderby fio.FIO
-                              select new
-                              {
-                                  FIO = fio.FIO,
-                                  DOL = pSL.DOL,
-                                  POD = pSL.POD,
-                                  ISN_PERSON = pSL.ISN_PERSON
-                              }).Take(10);  //).ToList(); - not needed cuz it's IQuariable already wich means foreach works!
+            //var activeStaff = (from pSL in dbContext.CADRE_VIEW_PERSONSL
+            //                  join fio in dbContext.CADRE_VIEW_FIO on
+            //                  pSL.ISN_PERSON equals fio.ISN_PERSON
+            //                  orderby fio.FIO
+            //                  select new
+            //                  {
+            //                      FIO = fio.FIO,
+            //                      DOL = pSL.DOL,
+            //                      POD = pSL.POD,
+            //                      ISN_PERSON = pSL.ISN_PERSON
+            //                  }).Take(10);  //).ToList(); - not needed cuz it's IQuariable already wich means foreach works!
 
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            //Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            int i = 1;
-            foreach (var person in activeStaff)
+            //int i = 1;
+            //foreach (var person in activeStaff)
+            //{
+            //    Console.WriteLine($"{i++}. {person.FIO} Подразделение: {person.POD}. Должность: {person.DOL}.");
+            //}
+
+
+            
+            string c = Console.ReadLine();
+
+            Console.WriteLine(CheckPalindrome(c));
+        }
+
+        public static bool CheckPalindrome(string word)
+        {
+            for (int i = 0; i <= word.Length/2; i++)
             {
-                Console.WriteLine($"{i++}. {person.FIO} Подразделение: {person.POD}. Должность: {person.DOL}.");
+                if (word[i] != word[word.Length-i-1])
+                {
+                    return false;
+                }
             }
 
+            return true;
         }
     }
 }

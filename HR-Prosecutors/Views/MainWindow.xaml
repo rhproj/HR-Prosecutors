@@ -11,6 +11,20 @@
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <!--<DataTemplate DataType="{x:Type vm:MainViewModel}">
+            <here coresponding view aka user-controll/>
+        </DataTemplate>-->
+        <!--<Style x:Key="DGPersonActiveStyle" x:Shared="True" TargetType="DataGrid">
+            <Setter Property="Columns">
+                <Setter.Value>
+                    <DataGridTextColumn Header="Column 1" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="Column 2" Binding="{Binding Position}"/>
+                    <DataGridTextColumn Header="Column 3" Binding="{Binding Department}" Width="400"/>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+    </Window.Resources>
     <Grid>
         <DockPanel>
             <Grid DockPanel.Dock="Top" Margin="10,10">
@@ -34,9 +48,13 @@
             <TabControl SelectedIndex="{Binding TabIndex}">
                 <TabItem Header="На позициях">
                     <DataGrid ItemsSource="{Binding OnActivePositionsList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
+                            <DataGridTextColumn Header="Подразделение" Binding="{Binding Department}" Width="400"/>
+                        </DataGrid.Columns>
                     </DataGrid>
-
                 </TabItem>
                 <TabItem Header="Оперативные должности">
                     <DataGrid ItemsSource="{Binding OnActiveProsecutorsList}" LoadingRow="DataGrid_LoadingRow" 
