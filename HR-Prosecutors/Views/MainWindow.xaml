@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         
         xmlns:vm="clr-namespace:HR_Prosecutors.ViewModels"
-        Title="СКД Кадры" Height="450" Width="800">
+        FontSize="16"
+        Title="СКД Кадры" Height="650" Width="900">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -27,15 +28,15 @@
     </Window.Resources>
     <Grid>
         <DockPanel>
-            <Grid DockPanel.Dock="Top" Margin="10,10">
+            <Grid DockPanel.Dock="Top" Margin="10,12">
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="50" />
                     <ColumnDefinition />
-                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="ФИО:"/>
-                <TextBox Grid.Column="1" Margin="10,0" Text="{Binding NameToSearch}"/>
-                <Button Content="Поиск" Grid.Column="2" Command="{Binding SearchCommand}"/>
+                <Label Content="ФИО:" FontSize="17"/>
+                <TextBox Grid.Column="1" Margin="10,0" Text="{Binding NameToSearch}" FontSize="17" VerticalContentAlignment="Center"/>
+                <Button Content="Поиск" Grid.Column="2" FontSize="17" Command="{Binding SearchCommand}"/>
             </Grid>
             <StatusBar DockPanel.Dock="Bottom" >
                 <StatusBarItem >
@@ -69,9 +70,6 @@
                 <TabItem Header="ISN Raw">
                     <DataGrid ItemsSource="{Binding PersonSList}" LoadingRow="DataGrid_LoadingRow" 
                               IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
-                        <!--<DataGrid.Columns >
-                        <DataGridTextColumn Header="Фам"  />
-                    </DataGrid.Columns>-->
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Не активны">
