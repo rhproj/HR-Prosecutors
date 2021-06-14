@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HR_Prosecutors.ViewModels
@@ -29,12 +30,25 @@ namespace HR_Prosecutors.ViewModels
             set { _tabIndex = value; OnPropertyChanged(); }
         }
 
+        /// <summary>Search parameters</summary>
         private string _nameToSearch;
-        /// <summary> Name to search</summary>
         public string NameToSearch
         {
             get { return _nameToSearch; }
             set { _nameToSearch = value; OnPropertyChanged(); }
+        }
+        //private string _departmentToSearch;
+        //public string DepartmentToSearch
+        //{
+        //    get { return _departmentToSearch; }
+        //    set { _departmentToSearch = value; OnPropertyChanged(); }
+        //}
+        /// <summary>parameters switch</summary>
+        private bool _rbtnToggle;
+        public bool RbtnToggle
+        {
+            get { return _rbtnToggle; }
+            set { _rbtnToggle = value; OnPropertyChanged(); }
         }
 
 
@@ -78,7 +92,10 @@ namespace HR_Prosecutors.ViewModels
         public ICommand SearchCommand { get; }
         private bool CanSearchCommandExecute(object p) 
         {
-            if (TabIndex < 3)  //OnActivePositionsList == null || 
+            if (NameToSearch == null)
+                return false;
+
+            if (TabIndex < 3)
                 return true;
 
             return false;
@@ -87,15 +104,25 @@ namespace HR_Prosecutors.ViewModels
         {
             if (TabIndex == 0)
             {
-                OnActivePositionsList = SearchPerson(LoadActive(), NameToSearch).ToList();
+                if (RbtnToggle == false)
+                    OnActivePositionsList = SearchPerson(LoadActive(), NameToSearch).ToList();
+                else
+                    OnActivePositionsList = SearchDepartment(LoadActive(), NameToSearch).ToList();
             }
             else if (TabIndex == 1)
             {
-                OnActiveProsecutorsList = SearchPerson(LoadActiveProsecutors(), NameToSearch).ToList();
+                if (RbtnToggle == false)
+                    OnActiveProsecutorsList = SearchPerson(LoadActiveProsecutors(), NameToSearch).ToList();
+                else
+                    OnActiveProsecutorsList = SearchDepartment(LoadActiveProsecutors(), NameToSearch).ToList();
+
             }
             else if (TabIndex == 2)
             {
-                OnActiveSpecialistsList = SearchPerson(LoadActiveSpecialists(), NameToSearch).ToList();
+                if (RbtnToggle == false)
+                    OnActiveSpecialistsList = SearchPerson(LoadActiveSpecialists(), NameToSearch).ToList();
+                else
+                    OnActiveSpecialistsList = SearchDepartment(LoadActiveSpecialists(), NameToSearch).ToList();
             }
         }
 
@@ -193,6 +220,13 @@ namespace HR_Prosecutors.ViewModels
 
             return result; //new ObservableCollection<PersonActive>(result);
         }
+        private IEnumerable<PersonActive> SearchDepartment(IEnumerable<PersonActive> listToSearch, string depName)
+        {
+            var result = listToSearch.Where(p => p.Department.Contains(depName, StringComparison.InvariantCultureIgnoreCase));
+            
+            return result;
+        }
+
 
         private void SaveExcel(IEnumerable<IPerson> StaffList, FileInfo file, string header)
         {

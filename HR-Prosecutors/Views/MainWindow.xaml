@@ -7,16 +7,20 @@
         mc:Ignorable="d"
         
         xmlns:vm="clr-namespace:HR_Prosecutors.ViewModels"
+        xmlns:convert="clr-namespace:HR_Prosecutors.Converters"
         FontSize="16"
         Title="СКД Кадры" Height="650" Width="900">
+    <Window.Resources>
+        <convert:BoolInverterConverter x:Key="bIC"/>
+    </Window.Resources>
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
-    <Window.Resources>
-        <!--<DataTemplate DataType="{x:Type vm:MainViewModel}">
+
+    <!--<DataTemplate DataType="{x:Type vm:MainViewModel}">
             <here coresponding view aka user-controll/>
         </DataTemplate>-->
-        <!--<Style x:Key="DGPersonActiveStyle" x:Shared="True" TargetType="DataGrid">
+    <!--<Style x:Key="DGPersonActiveStyle" x:Shared="True" TargetType="DataGrid">
             <Setter Property="Columns">
                 <Setter.Value>
                     <DataGridTextColumn Header="Column 1" Binding="{Binding FIO}"/>
@@ -25,18 +29,26 @@
                 </Setter.Value>
             </Setter>
         </Style>-->
-    </Window.Resources>
     <Grid>
         <DockPanel>
             <Grid DockPanel.Dock="Top" Margin="10,12">
                 <Grid.ColumnDefinitions >
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100" />
                     <ColumnDefinition />
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="73" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="ФИО:" FontSize="17"/>
-                <TextBox Grid.Column="1" Margin="10,0" Text="{Binding NameToSearch}" FontSize="17" VerticalContentAlignment="Center"/>
-                <Button Content="Поиск" Grid.Column="2" FontSize="17" Command="{Binding SearchCommand}"/>
+                <Label Content="Критерий:" FontSize="17" FontWeight="DemiBold"/>
+
+                <TextBox Grid.Column="1" Margin="0,0,8,0" Text="{Binding NameToSearch, UpdateSourceTrigger=PropertyChanged}" FontSize="17" VerticalContentAlignment="Center"/>
+                <RadioButton Grid.Column="2" Content="ФИО" VerticalContentAlignment="Center" FontWeight="DemiBold" 
+                             IsChecked="{Binding Path=RbtnToggle, Converter={StaticResource bIC}}"/>
+
+                <RadioButton Grid.Column="3" VerticalContentAlignment="Center" Content="Подразделение" FontWeight="DemiBold" 
+                             IsChecked="{Binding Path=RbtnToggle}"/>
+
+                <Button Content="Поиск" Grid.Column="4" FontSize="17" Command="{Binding SearchCommand}"/>
             </Grid>
             <StatusBar DockPanel.Dock="Bottom" >
                 <StatusBarItem >
