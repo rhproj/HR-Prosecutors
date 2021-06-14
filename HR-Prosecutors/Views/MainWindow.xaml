@@ -9,7 +9,7 @@
         xmlns:vm="clr-namespace:HR_Prosecutors.ViewModels"
         xmlns:convert="clr-namespace:HR_Prosecutors.Converters"
         FontSize="16"
-        Title="СКД Кадры" Height="650" Width="900">
+        Title="СКД Кадры" Icon="\Img\mainWindow.ico" Height="650" Width="900">
     <Window.Resources>
         <convert:BoolInverterConverter x:Key="bIC"/>
     </Window.Resources>
@@ -37,18 +37,23 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="73" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="125"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Критерий:" FontSize="17" FontWeight="DemiBold"/>
 
-                <TextBox Grid.Column="1" Margin="0,0,8,0" Text="{Binding NameToSearch, UpdateSourceTrigger=PropertyChanged}" FontSize="17" VerticalContentAlignment="Center"/>
-                <RadioButton Grid.Column="2" Content="ФИО" VerticalContentAlignment="Center" FontWeight="DemiBold" 
+                <TextBox Grid.Column="1" Margin="0,0,8,0" Padding="1,5" Text="{Binding NameToSearch, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalContentAlignment="Center"/>
+                <RadioButton Grid.Column="2" Content="ФИО" FontSize="17" VerticalContentAlignment="Center" FontWeight="DemiBold" 
                              IsChecked="{Binding Path=RbtnToggle, Converter={StaticResource bIC}}"/>
 
-                <RadioButton Grid.Column="3" VerticalContentAlignment="Center" Content="Подразделение" FontWeight="DemiBold" 
+                <RadioButton Grid.Column="3" Content="Подразделение"  FontSize="17" VerticalContentAlignment="Center"  FontWeight="DemiBold" 
                              IsChecked="{Binding Path=RbtnToggle}"/>
 
-                <Button Content="Поиск" Grid.Column="4" FontSize="17" Command="{Binding SearchCommand}"/>
+                <Button Grid.Column="4" Margin="15,0,0,0"  Command="{Binding SearchCommand}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="\Img\search01.png" Height="32" Width="32" Margin="-5,0,2,0"/>
+                        <TextBlock Text="Поиск" VerticalAlignment="Center" FontSize="18"   FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
             </Grid>
             <StatusBar DockPanel.Dock="Bottom" >
                 <StatusBarItem >

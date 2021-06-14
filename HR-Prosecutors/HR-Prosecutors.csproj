@@ -5,7 +5,13 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>HR_Prosecutors</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>mainWindow.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Img\mainWindow.ico" />
+    <None Remove="Img\search01.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
@@ -14,6 +20,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EosKadriLibrary\EosKadriLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Img\mainWindow.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Img\search01.png" />
   </ItemGroup>
 
 </Project>
