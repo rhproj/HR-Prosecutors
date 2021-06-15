@@ -9,7 +9,7 @@
         xmlns:vm="clr-namespace:HR_Prosecutors.ViewModels"
         xmlns:convert="clr-namespace:HR_Prosecutors.Converters"
         FontSize="16"
-        Title="СКД Кадры" Icon="\Img\mainWindow.ico" Height="650" Width="900">
+        Title="Система кадрового делопроизводства - Кадры" Icon="\Img\mainWindow.ico" Height="650" Width="900">
     <Window.Resources>
         <convert:BoolInverterConverter x:Key="bIC"/>
     </Window.Resources>
