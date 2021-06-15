@@ -1,6 +1,7 @@
 ﻿using EosKadriLibrary;
 using HR_Prosecutors.Commands;
 using HR_Prosecutors.Models;
+using HR_Prosecutors.Services;
 using Microsoft.Win32;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -37,12 +38,8 @@ namespace HR_Prosecutors.ViewModels
             get { return _nameToSearch; }
             set { _nameToSearch = value; OnPropertyChanged(); }
         }
-        //private string _departmentToSearch;
-        //public string DepartmentToSearch
-        //{
-        //    get { return _departmentToSearch; }
-        //    set { _departmentToSearch = value; OnPropertyChanged(); }
-        //}
+
+
         /// <summary>parameters switch</summary>
         private bool _rbtnToggle;
         public bool RbtnToggle
@@ -51,10 +48,8 @@ namespace HR_Prosecutors.ViewModels
             set { _rbtnToggle = value; OnPropertyChanged(); }
         }
 
-
         /// <summary> HR-DB name to connect to </summary>
         public string DbName { get { return $"База данных: {dbContext.Database.Connection.Database}"; } }
-
 
         private IEnumerable<PersonActive> _onActivePositionsList;
         /// <summary> Staff on positions </summary>
@@ -86,6 +81,7 @@ namespace HR_Prosecutors.ViewModels
         /// <summary> Inactive staff members </summary>
         public IEnumerable<PersonSL> PersonDList { get; set; }
 
+        private string _ipTest = "";
         #endregion
 
         #region COMMANDS
@@ -198,6 +194,12 @@ namespace HR_Prosecutors.ViewModels
 
         public MainViewModel()
         {
+            if (DbAccess.TestConnection(_ipTest) == false)
+            {
+                MessageBox.Show($"Отсутствует связь с {_ipTest}");
+                Environment.Exit(0);
+            }
+
             OnActivePositionsList = LoadActive();
 
             OnActiveProsecutorsList = LoadActiveProsecutors();
