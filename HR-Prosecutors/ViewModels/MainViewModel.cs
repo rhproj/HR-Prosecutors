@@ -189,11 +189,11 @@ namespace HR_Prosecutors.ViewModels
 
         public MainViewModel()
         {
-            if (DbAccess.TestConnection(_ipTest) == false)
-            {
-                MessageBox.Show($"Отсутствует связь с {_ipTest}");
-                Environment.Exit(0);
-            }
+            //if (DbAccess.TestConnection(_ipTest) == false)
+            //{
+            //    MessageBox.Show($"Отсутствует связь с {_ipTest}");
+            //    Environment.Exit(0);
+            //}
 
             OnActivePositionsList = LoadActive();
 

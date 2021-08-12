@@ -51,7 +51,7 @@
                 <Button Grid.Column="4" Margin="15,0,0,0"  Command="{Binding SearchCommand}">
                     <StackPanel Orientation="Horizontal" >
                         <Image Source="\Img\search01.png" Height="32" Width="32" Margin="-5,0,2,0"/>
-                        <TextBlock Text="Поиск" VerticalAlignment="Center" FontSize="18"   FontWeight="Bold"/>
+                        <TextBlock Text="Поиск" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -76,12 +76,22 @@
                 </TabItem>
                 <TabItem Header="Оперативные должности">
                     <DataGrid ItemsSource="{Binding OnActiveProsecutorsList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
+                            <DataGridTextColumn Header="Подразделение" Binding="{Binding Department}" Width="400"/>
+                        </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Специалисты">
                     <DataGrid ItemsSource="{Binding OnActiveSpecialistsList}" LoadingRow="DataGrid_LoadingRow" 
-                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
+                            <DataGridTextColumn Header="Подразделение" Binding="{Binding Department}" Width="400"/>
+                        </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="ISN Raw">
